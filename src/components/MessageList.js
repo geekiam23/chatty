@@ -22,8 +22,9 @@ class MessageList extends Component {
     if (this.props.messageCurrentRoom === undefined || this.props.user === null) {
       this.SetState({ newMessage: '' });
     }else {
+        debugger;
       this.messagesRef.push({
-        username: 'will_larry',
+        username: this.props.messageUsername,
         roomId: this.props.messageCurrentRoom,
         sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
         content: this.state.newMessage
