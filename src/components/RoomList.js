@@ -35,7 +35,15 @@ class RoomList extends Component {
     this.roomsRef.push({name: newRoom});
     this.setState({handleForm: false});
   }
-  
+
+  setRoom(event) {
+    this.setState({ newRoomName: event.target.value });
+  }
+
+  chooseRoom(room) {
+    this.props.roomListCallback(room);
+  }
+
   render() {
     return (
       <div className='roomList'>
@@ -43,7 +51,7 @@ class RoomList extends Component {
         <ul className='sidebar-list'> {
 
           this.state.rooms.map((room, index) =>
-            <li className='rooms' key={index}><p>{room.name}</p></li>
+            <li className='rooms' key={index} onClick={(e) => this.chooseRoom( room )}><a>{room.name}</a></li>
         )}
         </ul>
         <form className={this.state.handleForm ? 'displayed' : 'hidden'} onSubmit={this.createRoom}>
