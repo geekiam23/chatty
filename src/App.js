@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import './App.css';
 import RoomList from './components/RoomList.js';
+import MessageList from './components/MessageList.js';
 
 // Initialize Firebase
    var config = {
@@ -15,13 +16,36 @@ import RoomList from './components/RoomList.js';
    firebase.initializeApp(config);
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentRoom: ' --- '
+    };
+  }
+
   render() {
     return (
       <div className="App">
-        <RoomList firebase={firebase} />
+
+        <header className="App-header">
+          <h1 className="App-title">Welcome to Chatty</h1>
+        </header>
+
+        <div className="content">
+
+          <div className="room-list">
+            <RoomList firebase={firebase} roomListCallback={this.appCallback} />
+          </div>
+
+          <div className="message-header">
+            <div className="message-list">
+              <p className="message-header">Current Chat Room - {this.state.currentRoom}</p>
+                <MessageList firebase={firebase} messageCurrentRoom={this.state.currentRoom} />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
 }
-
 export default App;
